@@ -41,21 +41,104 @@
 
 # python main.py --out_dir=out/2_layer_rtheta_100 --rotary_theta=100 --plot_attn_every_epoch=1000
 
-python main.py --out_dir=out_longer_epochs/2_layer_rtheta_100_two_level \
-    --batch_size=100 --lr=0.0002 \
-    --rotary_theta=100 --plot_attn_every_epoch=1000 --num_epoch=100000 &
+# python main.py --out_dir=out_longer_epochs/2_layer_rtheta_100_two_level \
+#     --batch_size=100 --lr=0.0002 \
+#     --rotary_theta=100 --plot_attn_every_epoch=1000 --num_epoch=100000 &
 
-python main.py --out_dir=out_longer_epochs/2_layer_rtheta_100_unif \
-    --distr=unif \
-    --batch_size=100 --lr=0.0002 \
-    --rotary_theta=100 --plot_attn_every_epoch=1000 --num_epoch=100000 &
+# python main.py --out_dir=out_longer_epochs/2_layer_rtheta_100_unif \
+#     --distr=unif \
+#     --batch_size=100 --lr=0.0002 \
+#     --rotary_theta=100 --plot_attn_every_epoch=1000 --num_epoch=100000 &
 
-python main.py --out_dir=out_longer_epochs/2_layer_rtheta_100_zipf \
-    --distr=zipf \
-    --batch_size=100 --lr=0.0002 \
-    --rotary_theta=100 --plot_attn_every_epoch=1000 --num_epoch=100000
+# python main.py --out_dir=out_longer_epochs/2_layer_rtheta_100_zipf \
+#     --distr=zipf \
+#     --batch_size=100 --lr=0.0002 \
+#     --rotary_theta=100 --plot_attn_every_epoch=1000 --num_epoch=100000
 
 
-# python main.py --out_dir=test_larger_batch/2_layer --num_epoch=5000 --batch_size=100 --lr=0.0005 --plot_attn_every_epoch=1000 &
+# python main.py --out_dir=test_larger_batch/2_layer \
+#     --num_epoch=10000 --batch_size=1000 --lr=0.001 \
+#     --distr=zipf \
+#     --plot_attn_every_epoch=1000 &
+
+# python main.py --out_dir=test_larger_batch/1_layer \
+#     --num_layers=1 \
+#     --num_epoch=10000 --batch_size=1000 --lr=0.001 \
+#     --distr=zipf \
+#     --plot_attn_every_epoch=1000 &
+
 # python main.py --out_dir=test_larger_batch/2_layer_rtheta_100 --num_epoch=5000 --batch_size=100 --lr=0.0005 --rotary_theta=100 --plot_attn_every_epoch=1000 &
 # python main.py --out_dir=test_larger_batch/2_layer_rtheta_1000 --num_epoch=5000 --batch_size=100 --lr=0.0005 --rotary_theta=1000 --plot_attn_every_epoch=1000
+
+
+# python main.py --out_dir=test_larger_vocab/2_layer_20k_epoch_1k_batch \
+#     --num_epoch=20000 --batch_size=1000 \
+#     --distr=zipf --vocab_size=64 \
+#     --plot_attn_every_epoch=1000 &
+
+# python main.py --out_dir=test_larger_vocab/1_layer_20k_epoch_1k_batch \
+#     --num_layers=1 \
+#     --num_epoch=20000 --batch_size=1000 \
+#     --distr=zipf --vocab_size=64 \
+#     --plot_attn_every_epoch=1000
+
+# python main.py --out_dir=test_larger_vocab/2_layer_128_vocab_128_dmodel \
+#     --num_epoch=10000 --batch_size=1000 \
+#     --distr=zipf --vocab_size=128 --d_model=128 --ff_dim=512 \
+#     --plot_attn_every_epoch=1000 &
+
+# python main.py --out_dir=test_larger_vocab/1_layer_128_vocab_128_dmodel \
+#     --num_layers=1 \
+#     --num_epoch=10000 --batch_size=1000 \
+#     --distr=zipf --vocab_size=128 --d_model=128 --ff_dim=512 \
+#     --plot_attn_every_epoch=1000 &
+
+# python main.py --out_dir=test_larger_vocab/2_layer_128_vocab \
+#     --num_epoch=10000 --batch_size=1000 \
+#     --distr=zipf --vocab_size=128 \
+#     --plot_attn_every_epoch=1000 &
+
+# python main.py --out_dir=test_larger_vocab/1_layer_128_vocab \
+#     --num_layers=1 \
+#     --num_epoch=10000 --batch_size=1000 \
+#     --distr=zipf --vocab_size=128 \
+#     --plot_attn_every_epoch=1000 &
+
+# python main.py --out_dir=test_larger_vocab/2_layer_1024_vocab \
+#     --num_epoch=10000 --batch_size=1000 \
+#     --distr=zipf --vocab_size=1024 \
+#     --plot_attn_every_epoch=1000 &
+
+# python main.py --out_dir=test_larger_vocab/1_layer_1024_vocab \
+#     --num_layers=1 \
+#     --num_epoch=10000 --batch_size=1000 \
+#     --distr=zipf --vocab_size=1024 \
+#     --plot_attn_every_epoch=1000
+
+
+# python main.py --out_dir=test_wd/2_layer_wd_001 \
+#     --num_epoch=50000 --batch_size=50 \
+#     --distr=zipf --wd=0.001 \
+#     --plot_attn_every_epoch=1000 &
+
+# python main.py --out_dir=test_wd/2_layer_wd_01 \
+#     --num_epoch=50000 --batch_size=50 \
+#     --distr=zipf --wd=0.01 \
+#     --plot_attn_every_epoch=1000 &
+
+# python main.py --out_dir=test_wd/2_layer_wd_1 \
+#     --num_epoch=50000 --batch_size=50 \
+#     --distr=zipf --wd=0.1 \
+#     --plot_attn_every_epoch=1000 &
+
+
+# python main.py --out_dir=out_final/2_layer \
+#     --num_epoch=200000 --batch_size=50 \
+#     --distr=zipf \
+#     --plot_attn_every_epoch=2000 &
+
+python main.py --out_dir=out_final/1_layer \
+    --num_layers=1 \
+    --num_epoch=200000 --batch_size=50 \
+    --distr=zipf \
+    --plot_attn_every_epoch=2000

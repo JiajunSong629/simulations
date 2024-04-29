@@ -117,7 +117,7 @@ def make_distr(config):
                 np.array([1 / (2 * (config.vocab_size - 4))] * (config.vocab_size - 4)),
             )
         )
-        np.random.shuffle(p)
+        # np.random.shuffle(p)
         p = torch.Tensor(p)
     elif config.distr == "two-level-3":  # NOT USED for now, may change later
         p = np.concatenate(
@@ -126,16 +126,18 @@ def make_distr(config):
                 np.array([1 / (2 * (config.vocab_size - 4))] * (config.vocab_size - 4)),
             )
         )
-        np.random.shuffle(p)
+        # np.random.shuffle(p)
         p = torch.Tensor(p)
     elif config.distr == "zipf":
         # https://en.wikipedia.org/wiki/Zipf%27s_law
         p = np.array([1 / (i + 2.7) for i in range(1, config.vocab_size + 1)])
         p = p / np.sum(p)
-        np.random.shuffle(p)
+        # np.random.shuffle(p)
         p = torch.Tensor(p)
-    else:
+    elif config.distr == "unif":
         p = None
+    else:
+        raise ValueError(f"distr {config.distr} is not supported!")
 
     return p
 

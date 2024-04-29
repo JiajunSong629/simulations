@@ -246,7 +246,7 @@ def plot_err_curve(
         weight="bold",
     )
     axs[1].set_xlabel("Epochs", weight="bold")
-    axs[1].axhline(y=0.5, xmin=0, xmax=num_epoch, linestyle="dashed", c="black")
+    # axs[1].axhline(y=0.5, xmin=0, xmax=num_epoch, linestyle="dashed", c="black")
 
     if log_training_time:
         axs[0].set_xscale("log")

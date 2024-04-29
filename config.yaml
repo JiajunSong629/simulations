@@ -1,5 +1,5 @@
 # model
-vocab_size: 32
+vocab_size: 32 # 64
 d_model: 64
 ff_dim: 256
 num_heads: 1
