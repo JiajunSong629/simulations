@@ -137,8 +137,38 @@
 #     --distr=zipf \
 #     --plot_attn_every_epoch=2000 &
 
-python main.py --out_dir=out_final/1_layer \
-    --num_layers=1 \
-    --num_epoch=200000 --batch_size=50 \
-    --distr=zipf \
-    --plot_attn_every_epoch=2000
+# python main.py --out_dir=out_final/1_layer \
+#     --num_layers=1 \
+#     --num_epoch=200000 --batch_size=50 \
+#     --distr=zipf \
+#     --plot_attn_every_epoch=2000
+
+
+# python main.py --out_dir=out_final/2_layer_64_vocab \
+#     --num_epoch=200000 --batch_size=50 \
+#     --distr=zipf --vocab_size=64 \
+#     --plot_attn_every_epoch=2000 &
+
+# python main.py --out_dir=out_final/1_layer_64_vocab \
+#     --num_layers=1 \
+#     --num_epoch=200000 --batch_size=50 \
+#     --distr=zipf --vocab_size=64 \
+#     --plot_attn_every_epoch=2000
+
+
+
+# for ((pool_size = 100; pool_size <= 1000; pool_size += 100)); do
+#     python main.py --out_dir=out_phase_transition/2_layer_vocab_64_${pool_size}_10k \
+#         --pool_size=$pool_size \
+#         --num_epoch=10000 --batch_size=50 \
+#         --distr=zipf --vocab_size=64 \
+#         --plot_attn_every_epoch=2000    &
+# done
+
+for ((pool_size = 710; pool_size <= 790; pool_size += 10)); do
+    python main.py --out_dir=out_phase_transition/2_layer_vocab_64_${pool_size}_10k \
+        --pool_size=$pool_size \
+        --num_epoch=10000 --batch_size=50 \
+        --distr=zipf --vocab_size=64 \
+        --plot_attn_every_epoch=2000    &
+done
