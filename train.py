@@ -289,6 +289,10 @@ def train_infinite(
                     f"----> Epoch: {epoch+1:>5}, Train Loss: {loss.item():.3f}, Test Error: {err_arr[epoch,3]:.3f}, OOD Error: {err_arr[epoch,5]:.3f}"
                 )
 
+        if (1 + epoch) % (config.num_epoch // config.n_save) == 0:
+            out_path = os.path.join(config.out_dir, f"ckpt_{epoch + 1}.pt")
+            torch.save(model.state_dict(), out_path)
+
     lens = [lens_train, lens_test, lens_test_ood]
     _ = plot_err_over_pos(
         model,
