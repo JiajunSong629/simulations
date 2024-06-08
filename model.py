@@ -94,6 +94,27 @@ def apply_rotary_emb(xq: torch.Tensor, xk: torch.Tensor, freqs_cis: torch.Tensor
     xk_out = torch.view_as_real(xk_ * freqs_cis).flatten(3)
     return xq_out.type_as(xq), xk_out.type_as(xk)
 
+## a simple way of calculating rotary R matrix useful for analysis
+def calc_rotary_R_mat_simple(dim: int, theta: float = 10000.0, rel_dist: int = 10):
+    """
+    calc_rotary_R_mat_simple calculate the R matrices for computing QK. The formula of QK computation is Q R K^T where 
+        R is a (d_head, d_head) shaped matrix that depends on the relative distance between two tokens.
+        It is based directly on the formula from https://arxiv.org/pdf/2104.09864, Eqn 15.
+    Args:
+        dim: dimension, note that R matrix does not depend on d_model, only depend on d_head
+        theta: a frequency-related hyperparameter used for computing R matrices
+        rel_dist: a scalar, the relative distance we are interested in precompuing
+    Returns:
+        R: a (dim, dim)-shaped tensor 
+    """
+    freqs = 1.0 / (theta ** (torch.arange(0, dim, 2)[: (dim // 2)].float() / dim))
+    R = torch.zeros(dim, dim)
+    for j in range(dim // 2):
+        R[2*j, 2*j] = torch.cos(rel_dist*freqs[j])
+        R[2*j+1, 2*j+1] = torch.cos(rel_dist*freqs[j])
+        R[2*j, 2*j+1] = (-1) * torch.sin(rel_dist*freqs[j])
+        R[2*j+1, 2*j] = torch.sin(rel_dist*freqs[j])
+    return R
 
 # The following implementation of multi-head attention is from
 # https://towardsdatascience.com/build-your-own-transformer-from-scratch-using-pytorch-84c850470dcb
