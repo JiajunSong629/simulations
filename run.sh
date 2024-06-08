@@ -165,13 +165,42 @@
 #         --plot_attn_every_epoch=2000    &
 # done
 
-# for ((pool_size = 100; pool_size <= 1000; pool_size += 100)); do
-#     python main.py --out_dir=out_phase_transition/2_layer_vocab_64_${pool_size}_200k \
+# for ((pool_size = 100; pool_size <= 600; pool_size += 20)); do
+#     python main.py --out_dir=out_phase_transition_finer/2_layer_vocab_64_${pool_size}_20k \
 #         --pool_size=$pool_size \
-#         --num_epoch=200000 --batch_size=50 \
+#         --num_epoch=20000 --batch_size=50 \
 #         --distr=zipf --vocab_size=64 \
 #         --plot_attn_every_epoch=2000    &
 # done
+
+# wait
+
+# for ((pool_size = 620; pool_size <= 1000; pool_size += 20)); do
+#     python main.py --out_dir=out_phase_transition_finer/2_layer_vocab_64_${pool_size}_20k \
+#         --pool_size=$pool_size \
+#         --num_epoch=20000 --batch_size=50 \
+#         --distr=zipf --vocab_size=64 \
+#         --plot_attn_every_epoch=2000    &
+# done
+
+
+for ((loop_index = 0; loop_index <= 4; loop_index += 1)); do
+    pool_size_start=$((loop_index * 200 + 20))
+    pool_size_end=$((loop_index * 200 + 220))
+
+    for ((pool_size = pool_size_start; pool_size < pool_size_end; pool_size += 20)); do
+        python main.py --out_dir="out_phase_transition_finer/2_layer_vocab_64_${pool_size}_20k" \
+            --pool_size="$pool_size" \
+            --num_epoch=20000 --batch_size=50 \
+            --distr=zipf --vocab_size=64 \
+            --plot_attn_every_epoch=2000 &
+        # echo "Running $pool_size" &
+    done
+
+    wait
+    echo "Completed inner loop from $pool_size_start to $pool_size_end"
+done
+
 
 # python main.py --out_dir=out_phase_progress/2_layer_64_vocab \
 #     --num_epoch=10000 --batch_size=50 \
@@ -181,36 +210,43 @@
 
 # such as infinite pool size, small pool size, large pool size, pool size at boundary
 
-python main.py --out_dir=out_phase_progress/infinite_pool_size \
-    --num_epoch=10000 --batch_size=50 \
-    --distr=zipf --vocab_size=64 \
-    --plot_attn_every_epoch=5000 \
-    --n_save=50 &
+# python main.py --out_dir=out_phase_progress_long/infinite_pool_size \
+#     --num_epoch=20000 --batch_size=50 \
+#     --distr=zipf --vocab_size=64 \
+#     --plot_attn_every_epoch=5000 \
+#     --n_save=100 &
 
-python main.py --out_dir=out_phase_progress/small_pool_size \
-    --num_epoch=10000 --batch_size=50 \
-    --distr=zipf --vocab_size=64 \
-    --plot_attn_every_epoch=5000 \
-    --n_save=50 \
-    --pool_size=100 &
+# python main.py --out_dir=out_phase_progress_long/small_pool_size \
+#     --num_epoch=20000 --batch_size=50 \
+#     --distr=zipf --vocab_size=64 \
+#     --plot_attn_every_epoch=5000 \
+#     --n_save=100 \
+#     --pool_size=100 &
 
-python main.py --out_dir=out_phase_progress/large_pool_size \
-    --num_epoch=10000 --batch_size=50 \
-    --distr=zipf --vocab_size=64 \
-    --plot_attn_every_epoch=5000 \
-    --n_save=50 \
-    --pool_size=1000 &
+# python main.py --out_dir=out_phase_progress_long/large_pool_size \
+#     --num_epoch=20000 --batch_size=50 \
+#     --distr=zipf --vocab_size=64 \
+#     --plot_attn_every_epoch=5000 \
+#     --n_save=100 \
+#     --pool_size=1000 &
 
-python main.py --out_dir=out_phase_progress/boundary_pool_size_740 \
-    --num_epoch=10000 --batch_size=50 \
-    --distr=zipf --vocab_size=64 \
-    --plot_attn_every_epoch=5000 \
-    --n_save=50 \
-    --pool_size=740 &
+# python main.py --out_dir=out_phase_progress_long/boundary_pool_size_740 \
+#     --num_epoch=20000 --batch_size=50 \
+#     --distr=zipf --vocab_size=64 \
+#     --plot_attn_every_epoch=5000 \
+#     --n_save=100 \
+#     --pool_size=740 &
 
-python main.py --out_dir=out_phase_progress/boundary_pool_size_750 \
-    --num_epoch=10000 --batch_size=50 \
-    --distr=zipf --vocab_size=64 \
-    --plot_attn_every_epoch=5000 \
-    --n_save=50 \
-    --pool_size=750
+# python main.py --out_dir=out_phase_progress_long/boundary_pool_size_750 \
+#     --num_epoch=20000 --batch_size=50 \
+#     --distr=zipf --vocab_size=64 \
+#     --plot_attn_every_epoch=5000 \
+#     --n_save=100 \
+#     --pool_size=750
+
+# python main.py --out_dir=out_phase_progress_long/one_layer_infinite_pool_size \
+#     --num_layers=1 \
+#     --num_epoch=20000 --batch_size=50 \
+#     --distr=zipf --vocab_size=64 \
+#     --plot_attn_every_epoch=5000 \
+#     --n_save=100
